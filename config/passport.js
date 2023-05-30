@@ -28,3 +28,7 @@ const jwtStrategy = new JwtStrategy(jwtOptions, async (payload, done) => {
 passport.use(jwtStrategy);
 
 module.exports = passport;
+
+module.exports = {
+  JWT_SECRET: 'jwt_secret_'
+};

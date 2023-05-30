@@ -1,10 +1,10 @@
 //Creando los controladores de las librerias
 
-const { Library } = require('../models');
+const { Library, Book } = require('../models');
 
 exports.getAllLibraries = async (req, res) => {
   try {
-    const libraries = await Library.findAll({ include: 'Book' });
+    const libraries = await Library.findAll({ include: Book });
     res.json(libraries);
   } catch (error) {
     console.error('Error retrieving libraries:', error);
@@ -65,4 +65,12 @@ exports.deleteLibrary = async (req, res) => {
     console.error('Error deleting library:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
+};
+
+module.exports = {
+  getAllLibraries,
+  getLibraryById,
+  createLibrary,
+  updateLibrary,
+  deleteLibrary,
 };

@@ -1,10 +1,9 @@
 const express = require('express');
-const passport = require('passport');
 const bodyParser = require('body-parser');
 const authRouter = require('./routes/auth');
 const booksRouter = require('./routes/books');
 const librariesRouter = require('./routes/libraries');
-require('./config/passport');
+const passport = require('./config/passport');
 
 const app = express();
 //Incluyo esta linea para que se haga el setting del numero de puerto

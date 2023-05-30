@@ -3,6 +3,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
+
 const Library = sequelize.define('Library', {
     id: {
       type: DataTypes.INTEGER,
