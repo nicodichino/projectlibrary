@@ -2,21 +2,26 @@
 //Todavia no me siento muy comodo implementando todo esto
 
 const passport = require('passport');
-const passportJWT = require('passport-jwt');
-const { Strategy: JWTStrategy, ExtractJwt } = passportJWT;
+const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
+const { User } = require('../models');
 
 const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'my_secret_key',
-  };
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: 'your_jwt_secret_here', // Replace with your desired secret key
+};
 
+const jwtStrategy = new JwtStrategy(jwtOptions, async (payload, done) => {
+  try {
+    const user = await User.findByPk(payload.sub);
+    if (!user) {
+      return done(null, false);
+    }
+    done(null, user);
+  } catch (error) {
+    done(error, false);
+  }
+});
 
-passport.use(
-  new JWTStrategy(jwtOptions, async (payload, done) => {
-    // Voy a usar valores muy simples mientras experimento con esto para no confundirme solo
-    const user = { id: 1, username: 'john' };
-    return done(null, user);
-  })
-);
-  
-  
+passport.use(jwtStrategy);
+
+module.exports = passport;
