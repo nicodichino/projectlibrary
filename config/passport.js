@@ -2,7 +2,7 @@
 //Todavia no me siento muy comodo implementando todo esto
 //En esta version del codigo cualquier usuario puede crear su usuario y password
 //pero solo acceder a las funciones auth si incluyend su token valido al hacer 
-//un request y asi creo que soluciono el bonus de las validaciones
+//un request y asi creo que soluciono el bonus de las validaciones.
 
 const passport = require('passport');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
