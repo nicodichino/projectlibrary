@@ -1,5 +1,8 @@
 //Implementacion de passport y jwt tokens para la autenticacion de los usuarios
 //Todavia no me siento muy comodo implementando todo esto
+//En esta version del codigo cualquier usuario puede crear su usuario y password
+//pero solo acceder a las funciones auth si incluyend su token valido al hacer 
+//un request y asi creo que soluciono el bonus de las validaciones
 
 const passport = require('passport');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
@@ -7,7 +10,7 @@ const { User } = require('../models');
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: 'your_jwt_secret_here', // Replace with your desired secret key
+  secretOrKey: 'jwt_secret_', 
 };
 
 const jwtStrategy = new JwtStrategy(jwtOptions, async (payload, done) => {
