@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
-app.use(passport.initialize());
+
 
 // Rutas
 app.use('/auth', authRouter);

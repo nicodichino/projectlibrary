@@ -2,7 +2,7 @@
 
 const { Library, Book } = require('../models');
 
-exports.getAllLibraries = async (req, res) => {
+const getAllLibraries = async (req, res) => {
   try {
     const libraries = await Library.findAll({ include: Book });
     res.json(libraries);
@@ -12,7 +12,21 @@ exports.getAllLibraries = async (req, res) => {
   }
 };
 
-exports.createLibrary = async (req, res) => {
+const getLibraryById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const library = await Library.findByPk(id, { include: Book });
+    if (!library) {
+      return res.status(404).json({ error: 'Library not found' });
+    }
+    res.json(library);
+  } catch (error) {
+    console.error('Error retrieving library:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+const createLibrary = async (req, res) => {
   const { name, location, phoneNumber } = req.body;
   try {
     if (!req.user) {
@@ -26,7 +40,7 @@ exports.createLibrary = async (req, res) => {
   }
 };
 
-exports.updateLibrary = async (req, res) => {
+const updateLibrary = async (req, res) => {
   const { id } = req.params;
   const { name, location, phoneNumber } = req.body;
   try {
@@ -48,7 +62,7 @@ exports.updateLibrary = async (req, res) => {
   }
 };
 
-exports.deleteLibrary = async (req, res) => {
+const deleteLibrary = async (req, res) => {
   const { id } = req.params;
   try {
     if (!req.user) {

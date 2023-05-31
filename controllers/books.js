@@ -2,7 +2,7 @@
 
 const { Book, Library } = require('../models');
 
-exports.getAllBooks = async (req, res) => {
+const getAllBooks = async (req, res) => {
   const { libraryId } = req.query;
   try {
     const books = await Book.findAll({ where: { LibraryId: libraryId } });
@@ -13,7 +13,7 @@ exports.getAllBooks = async (req, res) => {
   }
 };
 
-exports.getBookById = async (req, res) => {
+const getBookById = async (req, res) => {
   const { libraryId, bookId } = req.params;
   try {
     const book = await Book.findOne({ where: { id: bookId, LibraryId: libraryId } });
@@ -27,7 +27,7 @@ exports.getBookById = async (req, res) => {
   }
 };
 
-exports.createBook = async (req, res) => {
+const createBook = async (req, res) => {
   const { isbn, title, author, year, libraryId } = req.body;
   try {
     if (!req.user) {
@@ -41,7 +41,7 @@ exports.createBook = async (req, res) => {
   }
 };
 
-exports.updateBook = async (req, res) => {
+const updateBook = async (req, res) => {
   const { libraryId, bookId } = req.params;
   const { title, author, year } = req.body;
   try {
@@ -63,7 +63,7 @@ exports.updateBook = async (req, res) => {
   }
 };
 
-exports.deleteBook = async (req, res) => {
+const deleteBook = async (req, res) => {
   const { libraryId, bookId } = req.params;
   try {
     if (!req.user) {
@@ -81,3 +81,11 @@ exports.deleteBook = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+module.exports = {
+  getAllBooks,
+  getBookById,
+  createBook,
+  updateBook,
+  deleteBook,
+}
